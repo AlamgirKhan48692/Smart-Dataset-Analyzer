@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualization Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+
+    <h1>📊 Visualization Dashboard</h1>
+    <br>
+
+    <p class="subtitle">
+        Choose how you want to analyze your dataset and
+        generate visual insights automatically.
+    </p>
+    <br>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="p">
+                    {{ message }}
+                </p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="visualization-card">
+
+        <form action="/generate_chart" method="POST">
+
+            <div class="form-group">
+
+                <label>
+                    Visualization Type
+                </label>
+
+                <select
+                    id="analysis_type"
+                    name="analysis_type"
+                    onchange="toggleFields()"
+                    title="analysis"
+                    required
+                >
+                    <option value="single">
+                        Single Column Analysis
+                    </option>
+
+                    <option value="relationship">
+                        Relationship Analysis
+                    </option>
+
+                    <option value="dataset">
+                        Dataset Analysis
+                    </option>
+                </select>
+
+            </div>
+
+            <!-- SINGLE COLUMN -->
+
+            <div
+                id="single-section"
+                class="section-block"
+            >
+
+                <div class="form-group">
+
+                    <label>
+                        Select Column
+                    </label>
+
+                    <select
+                        id="column"
+                        name="column"
+                        title="column"
+                    >
+                        {% for col in all_columns %}
+                        <option value="{{ col }}">
+                            {{ col }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- RELATIONSHIP -->
+
+            <div
+                id="relationship-section"
+                class="dataset-section"
+            >
+
+                <div class="form-group">
+
+                    <label>
+                        Select First Column
+                    </label>
+
+                    <select
+                        id="column1"
+                        name="column1"
+                        title="column1"
+                    >
+                        {% for col in all_columns %}
+                        <option value="{{ col }}">
+                            {{ col }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Select Second Column
+                    </label>
+
+                    <select
+                        id="column2"
+                        name="column2"
+                        title="column2"
+                    >
+                        {% for col in all_columns %}
+                        <option value="{{ col }}">
+                            {{ col }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- DATASET -->
+
+            <div
+                id="dataset-section"
+                class="dataset-section"
+            >
+
+                <div class="dataset-info">
+
+                    <strong>
+                        Dataset Analysis
+                    </strong>
+
+                    <p>
+                        Generate:
+                    </p>
+
+                    <ul>
+                        <li>Correlation Heatmap</li>
+                        <li>Missing Values Analysis</li>
+                        <li>Data Type Distribution</li>
+                        <li>Dataset Insights</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="button-group">
+                <a href="/showcolumns" class="btn">
+                    <button type="button">
+                        Back
+                    </button>
+                </a>
+
+                <button type="submit" class="generate-btn">
+                    Generate Visualization
+                </button>
+
+                <a href="/" class="btn home-btn">
+                    <button type="button">
+                        Home
+                    </button>
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+    <br>
+
+    <div class="rules-card">
+
+        <h3>
+            Available Visualization Modes
+        </h3>
+
+        <ul class="column_list">
+
+            <li>
+                <strong>Single Column Analysis</strong>
+                → Histogram, Pie Chart, Bar Chart, Box Plot
+            </li>
+
+            <li>
+                <strong>Relationship Analysis</strong>
+                → Scatter Plot, Line Chart
+            </li>
+
+            <li>
+                <strong>Dataset Analysis</strong>
+                → Heatmap, Correlation Matrix,
+                Missing Values Analysis
+            </li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<script>
+
+function toggleFields() {
+
+    const type =
+        document.getElementById(
+            "analysis_type"
+        ).value;
+
+    document.getElementById(
+        "single-section"
+    ).style.display = "none";
+
+    document.getElementById(
+        "relationship-section"
+    ).style.display = "none";
+
+    document.getElementById(
+        "dataset-section"
+    ).style.display = "none";
+
+    if (type === "single") {
+
+        document.getElementById(
+            "single-section"
+        ).style.display = "block";
+
+    }
+
+    else if (type === "relationship") {
+
+        document.getElementById(
+            "relationship-section"
+        ).style.display = "block";
+
+    }
+
+    else {
+
+        document.getElementById(
+            "dataset-section"
+        ).style.display = "block";
+
+    }
+}
+
+window.onload = toggleFields;
+
+</script>
+
+</body>
+</html>

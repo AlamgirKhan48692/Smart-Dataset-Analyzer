@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    
+    <div class="box">
+
+        {% if mean %}
+        <div class="result-container">
+            <div class="card">
+                <h2>Mean</h2>
+                <p>{{ mean }}</p>
+            </div>
+            <div class="card">
+                <h2>Median</h2>
+                <p>{{ median }}</p>
+            </div>
+            <div class="card">
+                <h2>Mode</h2>
+                <p>{{ mode }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if graph %}
+
+           <div class="graph-container">
+
+              <img src="{{ url_for('static', filename='graph.png') }}" alt="Graph">
+
+           </div>
+
+        {% endif %} 
+
+        <div class="pagination">
+
+            {% if has_missing %}
+               <a href="/fillcolumns">
+                  <button>Next</button>
+               </a>
+            {% else %}
+               <a href="/showcolumns"><button>Back</button></a>
+            {% endif %}
+
+        </div>
+    </div>
+</body>
+</html>

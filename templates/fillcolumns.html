@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill Columns</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+
+    <h1 class="page-title">Missing Value Treatment</h1>
+
+    <!-- Statistics Cards -->
+    <div class="stats-box">
+
+        <div class="card">
+            <h3>Total Missing Values</h3>
+            <p>{{ total_missing }}</p>
+        </div>
+
+        <div class="card">
+            <h3>Columns Affected</h3>
+            <p>{{ affected_columns }}</p>
+        </div>
+
+    </div>
+
+    <!-- Missing Value Form -->
+    <form action="/apply_missing_values" method="POST">
+
+        {% if columns %}
+
+        <div class="table-container">
+
+            <table class="missing-table">
+
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Type</th>
+                        <th>Missing Values</th>
+                        <th>Missing %</th>
+                        <th>Suggested Fill</th>
+                        <th>Treatment Method</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for col in columns %}
+                    <tr>
+
+                        <td>{{ col.name }}</td>
+
+                        <td>
+                            {% if col.dtype == "Numerical" %}
+                                <span class="badge badge-num">
+                                    Numerical
+                                </span>
+                            {% else %}
+                                <span class="badge badge-cat">
+                                    Categorical
+                                </span>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ col.missing }}</td>
+
+                        <td>{{ col.missing_pct }}%</td>
+
+                        <td class="suggestion">
+                            {{ col.suggestion }}
+                        </td>
+
+                        <td>
+
+                            <select
+                                class="method-select"
+                                name="{{ col.name }}"
+                                title="Select missing value treatment method"
+                            >
+
+                                {% if col.dtype == "Numerical" %}
+
+                                    {% if col.mean != "" %}
+                                    <option value="mean">
+                                        Mean ({{ col.mean }})
+                                    </option>
+                                    {% endif %}
+
+                                    {% if col.median != "" %}
+                                    <option value="median">
+                                        Median ({{ col.median }})
+                                    </option>
+                                    {% endif %}
+
+                                    <option value="mode">
+                                        Mode ({{ col.mode }})
+                                    </option>
+
+                                    <option value="ffill">
+                                        Forward Fill
+                                    </option>
+
+                                    <option value="bfill">
+                                        Backward Fill
+                                    </option>
+
+                                    <option value="drop">
+                                        Drop Rows
+                                    </option>
+
+                                    <option value="drop_column">
+                                        Drop Column
+                                    </option>
+
+                                {% else %}
+
+                                    <option value="mode">
+                                        Mode ({{ col.mode }})
+                                    </option>
+
+                                    <option value="ffill">
+                                        Forward Fill
+                                    </option>
+
+                                    <option value="bfill">
+                                        Backward Fill
+                                    </option>
+
+                                    <option value="drop">
+                                        Drop Rows
+                                    </option>
+
+                                    <option value="drop_column">
+                                        Drop Column
+                                    </option>
+
+                                {% endif %}
+
+                            </select>
+
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        
+            <div class="button-group">
+                <a href="/fillmissing"><button type="button">Back</button></a>
+                <button type="submit">
+                    Apply Changes
+                </button>
+            </div>
+        
+
+        {% else %}
+
+        <div class="message">
+
+            <h2>
+                ✅ No Missing Values Found In Dataset
+            </h2>
+
+            <p>
+                Your dataset is clean and ready for analysis.
+            </p>
+
+            <a href="{{ url_for('apply_missing_values') }}">
+                <button class="apply-btn" type="button">
+                    Continue To Analysis
+                </button>
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </form>
+
+</div>
+
+</body>
+</html>

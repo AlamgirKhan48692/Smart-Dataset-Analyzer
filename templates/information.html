@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    
+    <div class="box">
+        <h1>Basic information of Dataset</h1><br>
+        {% if head is not none %}
+            <h2>First Two Row of Dataset</h2>
+            <div class="table-container">
+               <p>{{ head.to_html(classes='table', index=False) | safe }}</p>
+            </div><br>
+        {% endif %}
+        {% if shape is not none %}
+          <h2>Dataset Shape</h2>
+          <div class="table-container">
+            {{ shape.to_html(classes='table', index=False) | safe }}
+          </div><br>
+        {% endif %}
+        {% if describe is not none %}
+           <h2>Dataset Describe</h2>
+           <div class="table-container">
+            {{ describe.to_html(classes='table', index=False) | safe }}
+           </div><br>
+        {% endif %}
+        {% if describe_explanation is not none %}
+        <h3>Statistics Meaning</h3>
+        <div class="table-container">
+          {{ describe_explanation.to_html(classes='table', index=False) | safe }}
+        </div>
+        <br>
+        {% endif %}
+        {% if info is not none %}
+        <h2>Dataset information</h2>
+        <div class="info">
+            <pre>
+                {{ info }}
+            </pre>
+            
+        </div><br>
+        {% endif %}
+        {% if missing is not none %}
+        <h2>Check Column for Missing Vlaue</h2>
+          <div>
+            {{ missing.to_html(classes='table', index=False) | safe }}
+          </div><br>
+        {% endif %}
+        <div class="button-group">
+          {% if has_missing %}
+          <a href="/"><button type="button">Back</button></a>
+          <a href="/fillmissing"><button type="button">Next</button></a>
+          {% else %}
+          <a href="/"><button type="button">Back</button></a>
+          <a href="/showcolumns"><button type="button">Next</button></a>
+          {% endif %}
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Missing Values</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    
+    <div class="box">
+        
+        {% with messages = get_flashed_messages() %}
+           {% if messages %}
+               {% for msg in messages %}
+                   <h1>{{ msg }}</h1>
+               {% endfor %}
+           {% endif %}
+        {% endwith %}
+        
+        <br><br>
+        <h2>Before Treatment</h2>
+        {{ before_missing.to_html(classes='table', index=False) | safe }}
+        
+        <br><br>
+        <h2>After Treatment</h2>
+        
+        {{ after_missing.to_html(classes='table', index=False) | safe }}
+    
+        <br>
+        <div class="button-group">
+            <a href="/fillcolumns"><button type="button">Back</button></a>
+            <a href="/download"><button type="button">Download Dataset</button></a>
+            <a href="/showcolumns"><button type="button">Next</button></a>
+        </div>
+    </div>
+    
+</body>
+</html>

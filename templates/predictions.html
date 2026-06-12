@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+    <h1>Prediction Results</h1>
+    {% if predictions %}
+    
+    <table class="prediction-table">
+        <thead>
+            <tr>
+                <th>Actual Value</th>
+                <th>Predicted Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in predictions %}
+            <tr>
+                <td>{{ row.actual }}</td>
+                <td>{{ row.predicted }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+    {% else %}
+    <h2>No Predictions Available</h2>
+    {% endif %}
+    <br>
+    <div class="button-group">
+
+        <button type="button" onclick="history.back()">
+            Back
+        </button>
+        <a href="/">
+            <button type="button">Home</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+
+    <div class="box">
+        
+        <h1>Uplaod Dataset</h1>
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div>
+                <input type="file" name="dataset" placeholder="upload File" required>
+                <a href="/clear"><button type="button" class="clear-btn">Clear</button></a>
+            </div>
+               
+            <div>
+               <button type="submit">Uplaod</button>
+               
+               
+            </div><br>
+        </form>
+        {% with messages = get_flashed_messages() %}
+           {% if messages %}
+               {% for msg in messages %}
+                  <h1>{{ msg }}</h1><br>
+                  <a href="/information"><button type="button">Next</button></a>
+               {% endfor %}
+           {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

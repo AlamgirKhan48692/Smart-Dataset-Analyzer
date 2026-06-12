@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="report-card">
+        <h1>Dataset Analysis Report</h1>
+        {% if show_heatmap %}
+        <h2>Correlation Heatmap</h2>
+        <img src="{{ url_for('static', filename='heatmap.png') }}" title="heatmap">
+        <br><br>
+        {% endif %}
+
+        {% if show_missing %}
+        <h2>Missing Values Analysis</h2>
+        <img src="{{ url_for('static', filename='missing.png') }}" title="missing">
+        <br><br>
+        {% endif %}
+
+        <h2>Column Type Distribution</h2>
+        <img src="{{ url_for('static', filename='datatype.png') }}" title="datatype">
+        <br><br>
+
+        <a href="/visualization">
+            <button>Back</button>
+        </a>
+    </div>
+
+</body>
+</html>

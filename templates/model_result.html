@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+
+<h1>Machine Learning Analysis Result</h1>
+
+<div class="result-container">
+
+    <div class="card">
+        <h2>Target Column</h2>
+        <p>{{ target_column }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Problem Type</h2>
+        <p>{{ problem_type|title }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Best Model</h2>
+        <p>{{ best_model }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Features Used</h2>
+        <p>{{ feature_count }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Training Rows</h2>
+        <p>{{ train_rows }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Testing Rows</h2>
+        <p>{{ test_rows }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Model Score</h2>
+        <p>{{ score }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Predictions Made</h2>
+        <p>{{ prediction_count }}</p>
+    </div>
+
+</div><br>
+
+<div class="button-group">
+    <a href="/showcolumns"><button type="button">Back</button></a>
+    <a href="{{ url_for('predictions') }}">
+        <button type="button">
+            View Predictions
+        </button>
+    </a>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Values</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    
+    <div class="box">
+        
+        {% if missing_values is not none %}
+        <h1>These are the Missing Values columns</h1><br>
+        <div>
+            {{ missing_values.to_html(classes='table', index=False) | safe}}
+        </div>
+           
+        {% endif %}
+        <br>
+        <div button-group>
+            <a href="/information"><button type="button">Back</button></a>
+            <a href="/fillcolumns"><button type="button">Next</button></a>
+        </div>
+    </div>
+    
+</body>
+</html>

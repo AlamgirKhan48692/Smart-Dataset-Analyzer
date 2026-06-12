@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="box">
+    <div class="box">
+        
+        <h1>Visualization Result</h1>
+        <img src="{{ url_for('static', filename='chart.png') }}" title="chart_png">
+
+        <br><br>
+
+        <a href="/visualization">
+            <button>
+                Back
+            </button>
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

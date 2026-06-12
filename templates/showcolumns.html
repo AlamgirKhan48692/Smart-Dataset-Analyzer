@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcolumns</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+</head>
+<body>
+    
+    <div class="box">
+        {% if numerical_columns or categorical_columns %}
+        <div class="columns">
+            <h2 class="center">Numerical Columns</h2>
+            <ul class="column-list">
+                {% for col in numerical_columns %}
+                    <li>{{ col }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="columns">
+            <h2 class="center">Categorical Columns</h2>
+            <ul class="column-list">
+                {% for col in categorical_columns %}
+                    <li>{{ col }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if all_columns %}
+        <form action="/analyze" method="POST">
+            <label for="target_column">
+                <h2>Select Target Column</h2>
+            </label>
+            <select name="target_column" id="target_column">
+                {% for col in all_columns %}
+                <option value="{{ col }}">
+                    {{ col }}
+                </option>
+                {% endfor %}
+            </select>
+            <div class="button-group">
+                <a href="/information"><button type="button">Back</button></a>
+                <button formaction="/analyze" type="submit">
+                    Statistics
+                </button>
+ 
+                <a href="/visualization">
+                    <button type="button">
+                        Visualization
+                    </button>
+                </a>
+
+                <button formaction="/model_result" type="submit">
+                    Train Model
+                </button>
+            </div>
+
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
