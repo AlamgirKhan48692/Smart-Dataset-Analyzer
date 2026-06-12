@@ -6,6 +6,12 @@ This platform allows users to upload datasets, analyze data, handle missing valu
 
 ---
 
+## 🎥 Project Demo
+
+[![Project Demo](screenshots/upload.png)](https://youtu.be/ulhbAIGRqPM)
+
+---
+
 ## 🚀 Features
 
 ### 📁 Dataset Upload
