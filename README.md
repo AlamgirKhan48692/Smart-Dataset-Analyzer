@@ -12,9 +12,10 @@ This platform allows users to upload datasets, analyze data, handle missing valu
 
 ---
 
-Live Demo
+## Live Demo
 
-🚀 Live Application: https://smart-dataset-analyzer-app.onrender.com
+### 🚀 Live Application: 
+https://smart-dataset-analyzer-app.onrender.com
 
 ---
 
